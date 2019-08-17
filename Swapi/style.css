@@ -1,0 +1,70 @@
+* {
+    box-sizing: border-box
+  }
+  
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Dosis', sans-serif;
+    line-height: 1.6;
+    color: rgb(82, 80, 80);
+    background: rgb(0, 0, 0);
+  }
+  
+  #root {
+    max-width: 1200px;
+    margin: 15%;
+  }
+  
+  h1 {
+    text-align: center;
+    padding: 1.5rem 2.5rem;
+    background-image: linear-gradient(120deg, #282f01 0%, #afce04 100%);
+    margin: 0 0 2rem 0;
+    font-size: 1.5rem;
+    color: rgb(251, 251, 251);
+  }
+  
+  img {
+    max-width: 30%;
+
+  }
+  
+  p {
+    padding: 0 2.5rem 2.5rem;
+    margin: 0;
+  }
+  
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .filme {
+    margin: 1rem;
+    background: rgb(255, 255, 255);
+    box-shadow: 2px 4px 25px rgba(0, 0, 0, .1);
+    border-radius: 2px;
+    overflow: hidden;
+    transition: all .2s linear;
+  }
+  
+  .filme:hover {
+    box-shadow: 2px 8px 45px rgba(0, 0, 0, .15);
+    transform: translate3D(0, -2px, 0);
+  }
+  
+
+  
+  .filme:nth-child(2n) h1 {
+    background-image: linear-gradient(120deg, #010324 0%, #d10707 100%);
+  }
+  
+  .filme:nth-child(4n) h1 {
+    background-image: linear-gradient(120deg, #310101 0%, #d10707 100%);
+  }
+  
+  .filme:nth-child(5n) h1 {
+    background-image: linear-gradient(120deg, #010324 0%, #060fcc 100%);
+  }
+
