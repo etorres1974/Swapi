@@ -6,12 +6,6 @@ var speciesList = [];
 var shipsList = [];
 var apiLinks =  [];
 
-importPlanets();
-importCharacters();
-importSpecies();
-importShips();
-importMovies();
-
 function importMovies(){
     var request = new XMLHttpRequest();
     request.open('GET', 'https://swapi.co/api/films/?format=json', true);
@@ -122,8 +116,6 @@ function importShips(url){
     request.send();
 }
 
-
-
 class Movie{ 
     constructor(nome, id, ano, diretor, sinopse, url){
         this.nome = nome;
@@ -132,6 +124,7 @@ class Movie{
         this.diretor = diretor;
         this.sinopse = sinopse;
         this.url = url;
+
         this.planets = [];
         this.findPlanets();
         this.characters = [];
@@ -144,7 +137,7 @@ class Movie{
     findPlanets(){
         for(var i = 0; i < planetsList.length; i++){
             planetsList[i].movies.forEach(url => {
-                if(url.includes(this.id)){
+                if(url == this.url){
                     this.planets.push(planetsList[i].name)
                 }
             })
@@ -153,7 +146,7 @@ class Movie{
     findCharacters(){
         for(var i = 0; i < charactersList.length; i++){
             charactersList[i].movies.forEach(url => {
-                if(url.includes(this.id)){
+                if(url == this.url){
                     this.characters.push(charactersList[i].name)
                 }
             })
@@ -162,7 +155,7 @@ class Movie{
     findSpecies(){
         for(var i = 0; i < speciesList.length; i++){
             speciesList[i].movies.forEach(url => {
-                if(url.includes(this.id)){
+                if(url == this.url){
                     this.species.push(speciesList[i].name)
                 }
             })
@@ -171,7 +164,7 @@ class Movie{
     findShips(){
         for(var i = 0; i < shipsList.length; i++){
             shipsList[i].movies.forEach(url => {
-                if(url.includes(this.id)){
+                if(url == this.url){
                     this.ships.push(shipsList[i].name)
                 }
             })
