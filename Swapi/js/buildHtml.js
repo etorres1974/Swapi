@@ -1,37 +1,145 @@
 // this Js is responsable for creating all Html components on our web =)
+function Criar(){
+    var main = document.getElementById("main")
+    var album = document.getElementById("album")
+    main.appendChild(album)
 
-var request = new XMLHttpRequest();
-request.onload = function () {
-    if(request.status >= 200 && request.status < 400){
-        movieList.forEach(movie => {
-            const filme = document.createElement('div')
-            const info = document.createElement('p')           
-            const container = document.createElement('container')
-            // Coloca o poster no cartão
-            const poster = document.createElement('img');
-            poster.src = `imagens/posters/${movie.id}.jpg`
+    var container = document.createElement("div")
+        container.setAttribute("class","container")
 
-            // Insere os htmls com seus appends
-            container.appendChild(filme);
-                filme.appendChild(h1);
-                container.appendChild(poster);
-                filme.appendChild(info);
-                filme.appendChild(detalhes);
-                
-        })
-    } else {
-        console.log('error')
-    }
+    var row = document.createElement('div')
+        row.setAttribute("class","row")
+
+    var logo = document.createElement('img');
+        logo.src = 'imagens/StarWarsLogo.png'
+
+        album.appendChild(container)
+        container.appendChild(row)
+
+    movieList.forEach(movie => {
+        var card = document.createElement('card')
+
+        var p = document.createElement('p');
+
+        var colum = document.createElement('div');
+        colum.setAttribute("class","col-md-4")
+        populateHtml()
+
+        var button = document.createElement("button")
+        button.setAttribute("class","btn btn-primary")
+        button.setAttribute("type","button")
+        button.setAttribute("data-toggle","collapse")
+        button.setAttribute("data-target","#contentId")
+        button.setAttribute("aria-expanded","false")
+        button.setAttribute("aria-controls","contentId")
+        
+        
+
+    
+    row.appendChild(colum)
+    colum.appendChild(button)
+    });
 }
 
-const app = document.getElementById('root');
-const logo = document.createElement('img');
-logo.src = 'imagens/StarWarsLogo.png'
+function createText(){
+    var row = document.getElementById("row");
+    movieList.forEach(movie =>{
+        var colum = document.createElement('div');
+        colum.setAttribute("class","col-md-4")
+        row.appendChild(colum)
 
-//Criando Container para organizar as divs dos filmes
-const container = document.createElement('div')
-container.setAttribute('class', 'container')
-app.appendChild(logo)
-app.appendChild(container)
+        var card = document.createElement('div')
+        card.setAttribute("class", "car mb-4 shadow-sm")
+        colum.appendChild(card)
 
-request.send();
+        
+
+        var poster = document.createElement('img');
+        poster.src = `imagens/posters/${movie.id}.jpg`
+        poster.setAttribute("class","img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}")
+        poster.setAttribute("alt","");
+        card.appendChild(poster)
+
+        var button = document.createElement("button")
+        button.setAttribute("class","btn btn-primary")
+        button.setAttribute("type","button")
+        button.setAttribute("data-toggle","collapse")
+        button.setAttribute("data-target","#contentId")
+        button.setAttribute("aria-expanded","false")
+        button.setAttribute("aria-controls","contentId")
+        card.appendChild(button);
+        var buttonMSG = document.createElement("p");
+        buttonMSG.innerText = "Planets"
+        button.appendChild(buttonMSG)
+
+        var expandedDescript = document.createElement("div")
+        expandedDescript.setAttribute("class","collapse")
+        expandedDescript.setAttribute("id","contentId")
+        card.appendChild(expandedDescript)
+        
+        var extra = movie.planets; 
+        var info = document.createElement("p");
+        info.innerText = extra;
+
+        expandedDescript.appendChild(info)
+
+        var description = movie.sinopse;
+        var p = document.createElement("p");
+        p.innerText = description;
+        card.appendChild(p)
+    })
+}
+createText()
+
+            
+
+
+/*
+
+            // Coloca o poster no cartão
+            
+
+            /
+
+            function Criar(){
+    var main = document.getElementById("main")
+    var album = document.getElementById("album")
+    main.appendChild(album)
+
+    var logo = document.createElement('img');
+        logo.src = 'imagens/StarWarsLogo.png'
+
+    movieList.forEach(movie => {
+        var card = document.createElement('card')
+
+        var container = document.createElement("div")
+        container.setAttribute("class","container-fluid")
+
+        var p = document.createElement('p');
+
+        var row = document.createElement('div')
+        row.setAttribute("class","row")
+
+        var colum = document.createElement('div');
+        colum.setAttribute("class","col-md-4")
+
+        var button = document.createElement("button")
+        button.setAttribute("class","btn btn-primary")
+        button.setAttribute("type","button")
+        button.setAttribute("data-toggle","collapse")
+        button.setAttribute("data-target","#contentId")
+        button.setAttribute("aria-expanded","false")
+        button.setAttribute("aria-controls","contentId")
+
+        var expandedDescript = document.createElement("div")
+        expandedDescript.setAttribute("class","collapse")
+        expandedDescript.setAttribute("id","contentId")
+        expandedDescript.textContent("Alot stuff")
+
+    album.appendChild(container)
+    cotainer.appendChild(row)
+    row.appendChild(colum)
+    colum.appendChild(button)
+    });
+}
+*/
