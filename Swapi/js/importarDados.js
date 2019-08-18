@@ -1,7 +1,13 @@
 // Este Js fica responsável por importar os dados da API e organiza-los em objetos
 var movieList = [];
 var planetsList = [];
+var charactersList = [];
+var speciesList = [];
+var shipsList = [];
 importPlanets();
+importCharacters();
+importSpecies();
+importShips();
 importMovies();
 
 
@@ -43,10 +49,72 @@ function importPlanets(){
     request.send();
 }
 
+function importCharacters(){
+    var request = new XMLHttpRequest();
+    request.open('GET', 'https://swapi.co/api/people/?format=json', true);
+                            
+        
+    request.onload = function () {
+        // Acessando dados Json apartir daqui.
+            var data = JSON.parse(this.response);
+
+            
+                if(request.status >= 200 && request.status < 400){
+                    data.results.forEach(result => {
+                        charactersList.push(new Character(result.name, result.films))
+                        count++;
+                })
+                } else {
+                    console.log('error')
+                }
+            
+            
+        }
+        
+    request.send();
+}
+
+function importSpecies(){
+    var request = new XMLHttpRequest();
+    request.open('GET', 'https://swapi.co/api/species/?format=json', true);
+        
+    request.onload = function () {
+        // Acessando dados Json apartir daqui.
+            var data = JSON.parse(this.response);
+            if(request.status >= 200 && request.status < 400){
+                data.results.forEach(result => {
+                    speciesList.push(new Species(result.name, result.films, result.classification) )
+            })
+            } else {
+                console.log('error')
+            }
+        }
+        
+    request.send();
+}
+function importShips(){
+    var request = new XMLHttpRequest();
+    request.open('GET', 'https://swapi.co/api/starships/?format=json', true);
+        
+    request.onload = function () {
+        // Acessando dados Json apartir daqui.
+            var data = JSON.parse(this.response);
+            if(request.status >= 200 && request.status < 400){
+                data.results.forEach(result => {
+                    shipsList.push(new Ships(result.name, result.films, result.starship_class) )
+            })
+            } else {
+                console.log('error')
+            }
+        }
+        
+    request.send();
+}
+
+
 class Movie{ 
     constructor(nome, id, ano, diretor, sinopse, url){
-        this.nome = nome=nome = nome;
- ;
+        this.nome = nome;
         this.id = id;
         this.ano = ano;
         this.diretor = diretor;
@@ -54,6 +122,12 @@ class Movie{
         this.url = url;
         this.planets = [];
         this.findPlanets();
+        this.characters = [];
+        this.findCharacters();
+        this.species = [];
+        this.findSpecies();
+        this.ships = [];
+        this.findShips();
     }
     findPlanets(){
         for(var i = 0; i < planetsList.length; i++){
@@ -64,6 +138,34 @@ class Movie{
             })
         }
     }
+    findCharacters(){
+        for(var i = 0; i < charactersList.length; i++){
+            charactersList[i].movies.forEach(url => {
+                if(url.includes(this.id)){
+                    this.characters.push(charactersList[i].name)
+                }
+            })
+        }
+    }
+    findSpecies(){
+        for(var i = 0; i < speciesList.length; i++){
+            speciesList[i].movies.forEach(url => {
+                if(url.includes(this.id)){
+                    this.species.push(speciesList[i].name)
+                }
+            })
+        }
+    }
+    findShips(){
+        for(var i = 0; i < shipsList.length; i++){
+            shipsList[i].movies.forEach(url => {
+                if(url.includes(this.id)){
+                    this.ships.push(shipsList[i].name)
+                }
+            })
+        }
+    }
+    
 }
 
 class Planet {
@@ -72,7 +174,30 @@ class Planet {
         this.movies = movies; // urls from the movies
     }
 }
+class Character {
+    constructor(name, movies){
+        this.name = name;
+        this.movies = movies; // urls from the movies
+    }
+}
+class Species {
+    constructor(name, movies, classification){
+        this.name = name;
+        this.movies = movies; // urls from the movies
+        this.classification = classification; 
+    }
+}
+class Ships {
+    constructor(name, movies, classification){
+        this.name = name;
+        this.movies = movies; // urls from the movies
+        this.classification = classification; 
+    }
+}
 
-//const Database = new Data();
+
+
+
+
 
     
