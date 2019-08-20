@@ -1,32 +1,34 @@
-// this Js is responsable for creating all Html components on our web =)
+// this Js is responsable for creating all Html components on our page =)
     var main = document.getElementById("main");
         main.setAttribute("class", "bg-dark")
     var album = document.getElementById("album");
     var albumRow = document.getElementById("albumRow");
-    //main.setAttribute("style", "style:background-color = black")
-    //var logo = document.createElement('img');
-    //logo.src = 'imagens/StarWarsLogo.png'
-    //main.append(logo);
+
 function createCards(){
+    
+    var cardsList = []
     movieList.forEach(movie => {
+  
+        //Creating elements
         var card = document.createElement("div");
-            card.setAttribute("class","card mb-3");
-            card.setAttribute("width","18rem");
+            card.setAttribute("class","card mb-3 m-2");
+            card.setAttribute("style","width: 18rem");
         var img = document.createElement("img");
-            img.setAttribute("class","img-fluid");
-            img.setAttribute("alt","Responsive image");
-            
-            //img.src = `imagens/posters/${movie.id}.jpg`;
+            img.setAttribute("class","card-img-top");
+            img.setAttribute("alt","Responsive image");     
+            img.src = `imagens/posters/${movie.id}.jpg`;
+
         var cardTop = document.createElement("div");
             cardTop.setAttribute("class","card-top");
         var cardBody = document.createElement("div");
             cardBody.setAttribute("class","card-body");
         var cardTitle = document.createElement("h5");
             cardTitle.setAttribute("class","card-title");
+            cardTitle.innerText = movie.name
         var cardText = document.createElement("p");
             cardText.setAttribute("class","card-text");
 
-        albumRow.appendChild(card)
+        //Appending
         card.appendChild(cardTop)
             cardTop.appendChild(img)
         card.appendChild(cardBody)
@@ -36,17 +38,35 @@ function createCards(){
             button(cardBody,"Species",movie.species)
             button(cardBody,"Starhips",movie.ships)
             button(cardBody,"Characters",movie.characters)
-            //button here inside cardBody 
             description(cardBody,movie.sinopse);
 
-
+        cardsList.push(card)
     })
+    
+    createCardsDecksOf(cardsList,4);
+
     endLoadMsg();
+}
+function createCardsDecksOf(cardsList, n){ //create CardsDecks of N cards
+    for(var i= 0; i < cardsList.length; i= i+n){
+        createCardDecks(cardsList.slice(i,i+n))
+    }
+}
+
+function createCardDecks(cardsList){ // Receive an array of cards and create a Deck with then;
+    var cardDeck = document.createElement("div");
+        cardDeck.setAttribute("class","card-deck");
+        cardsList.forEach(card =>{
+            cardDeck.appendChild(card)
+        })
+    
+    album.appendChild(cardDeck)
 }
 
 function description(mother,content){
     var description = content;
     var p = document.createElement("p");
+        p.setAttribute("class", "card text-center")
     p.innerText = description;
     mother.appendChild(p)
 }

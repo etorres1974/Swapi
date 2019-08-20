@@ -21,7 +21,7 @@ function importMovies(){
     request.open('GET', 'https://swapi.co/api/films/?format=json', true);
     
     request.onload = function () {
-        // Acessando dados Json apartir daqui.
+        // Json data avaible below.
         var data = JSON.parse(this.response);
         if(request.status >= 200 && request.status < 400){
             data.results.forEach(result => {
@@ -44,7 +44,7 @@ function importPlanets(url){
     var request = new XMLHttpRequest();
     request.open('GET', url, true);
     request.onload = function () {
-        // Acessando dados Json apartir daqui.
+        // Json data avaible below
             var data = JSON.parse(this.response); 
             var limit = data.count;   
                 if(request.status >= 200 && request.status < 400){
@@ -73,7 +73,7 @@ function importCharacters(url){
     var request = new XMLHttpRequest();
     request.open('GET', url, true);
     request.onload = function () {
-        // Acessando dados Json apartir daqui.
+        // Json data avaible below
             var data = JSON.parse(this.response);
             var limit = data.count;    
                 if(request.status >= 200 && request.status < 400){
@@ -102,7 +102,7 @@ function importSpecies(url){
     var request = new XMLHttpRequest();
     request.open('GET', url, true);
     request.onload = function () {
-        // Acessando dados Json apartir daqui.
+        // Json data avaible below
             var data = JSON.parse(this.response);
             var limit = data.count;    
                 if(request.status >= 200 && request.status < 400){
@@ -129,7 +129,7 @@ function importShips(url){
     var request = new XMLHttpRequest();
     request.open('GET', url, true);
     request.onload = function () {
-        // Acessando dados Json apartir daqui.
+        // Json data avaible below
             var data = JSON.parse(this.response);
             var limit = data.count;    
                 if(request.status >= 200 && request.status < 400){
@@ -151,8 +151,8 @@ function importShips(url){
 }
 
 class Movie{ 
-    constructor(nome, id, ano, diretor, sinopse, url){
-        this.nome = nome;
+    constructor(name, id, ano, diretor, sinopse, url){
+        this.name = name;
         this.id = id;
         this.ano = ano;
         this.diretor = diretor;
