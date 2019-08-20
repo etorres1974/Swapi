@@ -25,14 +25,18 @@ function createCards(){
         var cardTitle = document.createElement("h5");
             cardTitle.setAttribute("class","card-title");
             cardTitle.innerText = movie.name
+        var cardSubTitle = document.createElement("footer")
+            cardSubTitle.setAttribute("class","blockquote-footer")
+            cardSubTitle.innerText = movie.ano + "\n Directed by " + movie.director
         var cardText = document.createElement("p");
             cardText.setAttribute("class","card-text");
-
+        //<footer class="blockquote-footer">launched 12/07/1997 and direct by Eduardo Torres</footer>
         //Appending
         card.appendChild(cardTop)
             cardTop.appendChild(img)
         card.appendChild(cardBody)
             cardBody.appendChild(cardTitle)
+                cardTitle.appendChild(cardSubTitle)
             cardBody.appendChild(cardText)
             button(cardBody,"Planets",movie.planets)
             button(cardBody,"Species",movie.species)
@@ -47,6 +51,7 @@ function createCards(){
 
     endLoadMsg();
 }
+
 function createCardsDecksOf(cardsList, n){ //create CardsDecks of N cards
     for(var i= 0; i < cardsList.length; i= i+n){
         createCardDecks(cardsList.slice(i,i+n))

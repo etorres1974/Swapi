@@ -1,4 +1,4 @@
-// Este Js fica responsável por importar os dados da API e organiza-los em objetos
+// This Js imports the data from API and create Objects for them;
 var movieList = [];
 var planetsList = [];
 var charactersList = [];
@@ -16,13 +16,13 @@ function importAll(){
 }
 
 function importMovies(){
-
     var request = new XMLHttpRequest();
     request.open('GET', 'https://swapi.co/api/films/?format=json', true);
     
     request.onload = function () {
         // Json data avaible below.
         var data = JSON.parse(this.response);
+        var limit = data.count
         if(request.status >= 200 && request.status < 400){
             data.results.forEach(result => {
                 movieList.push(new Movie(result.title,result.episode_id, result.release_date, result.director, result.opening_crawl, result.url))
@@ -30,7 +30,7 @@ function importMovies(){
         } else {
             console.log('error')
         }
-        console.log("Successfully imported Movies")
+        console.log(`Successfully imported ${movieList.length}/${limit} Movies`)
         createCards();
     }
     
@@ -52,8 +52,7 @@ function importPlanets(url){
                         planetsList.push(new Planet(result.name, result.films))
                         if(planetsList.length == limit){
                             planetsImport = true;
-                            
-                            console.log( `Sucessefully imported ${limit} planets.`)
+                            console.log( `Sucessefully imported ${planetsList.length}/${limit} planets.`)
                         }
                 })
                 if(data.next != null){
@@ -81,7 +80,7 @@ function importCharacters(url){
                         charactersList.push(new Character(result.name, result.films))
                         if(charactersList.length == limit){
                             charactersImport = true;
-                            console.log( `Sucessefully imported ${limit} characters.`)
+                            console.log( `Sucessefully imported ${charactersList.length}/${limit} characters.`)
                             importMovies();
                         }
                 })
@@ -110,7 +109,7 @@ function importSpecies(url){
                         speciesList.push(new Species(result.name, result.films, result.classification))
                         if(speciesList.length == limit){
                             speciesImport = true;
-                            console.log( `Sucessefully imported ${limit} species.`)
+                            console.log( `Sucessefully imported ${speciesList.length}/${limit} species.`)
                         }
                 })
                 if(data.next != null){
@@ -137,7 +136,7 @@ function importShips(url){
                         shipsList.push(new Ship(result.name, result.films, result.starship_class))
                         if(shipsList.length == limit){
                             shipsImport = true;
-                            console.log( `Sucessefully imported ${limit} ships.`)
+                            console.log( `Sucessefully imported ${shipsList.length}/${limit} ships.`)
                         }
                 })
                 if(data.next != null){
@@ -151,11 +150,11 @@ function importShips(url){
 }
 
 class Movie{ 
-    constructor(name, id, ano, diretor, sinopse, url){
+    constructor(name, id, ano, director, sinopse, url){
         this.name = name;
         this.id = id;
         this.ano = ano;
-        this.diretor = diretor;
+        this.director = director;
         this.sinopse = sinopse;
         this.url = url;
 
